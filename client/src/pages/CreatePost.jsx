@@ -52,7 +52,7 @@ const CreatePost = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (form.prompt) {
+    if (form.prompt && form.photo) {
       setLoading(true);
       try {
         const response = await fetch(
@@ -62,12 +62,16 @@ const CreatePost = () => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(form),
+            body: JSON.stringify({ ...form }),
           }
         );
 
         await response.json();
-        alert("Success");
+        if (response.status === 201 && response.success === true) {
+          alert("Share post successfully!");
+        } else {
+          alert("Unable to create a post, something went wrong!");
+        }
         navigate("/");
       } catch (err) {
         alert(err);

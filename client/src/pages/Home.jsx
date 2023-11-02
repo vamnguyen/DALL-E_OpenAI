@@ -81,7 +81,7 @@ const Home = () => {
           labelName="Search posts"
           type="text"
           name="text"
-          placeholder="Search something..."
+          placeholder="Search something (title post)..."
           value={searchText}
           handleChange={handleSearchChange}
         />

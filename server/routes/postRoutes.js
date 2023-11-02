@@ -21,12 +21,10 @@ router.route("/").get(async (req, res) => {
 
     res.status(200).json({ success: true, data: posts });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Fetching posts failed, please try again!",
-      });
+    res.status(500).json({
+      success: false,
+      message: "Fetching posts failed, please try again!",
+    });
   }
 });
 
@@ -35,18 +33,23 @@ router.route("/").post(async (req, res) => {
   try {
     const { name, prompt, photo } = req.body;
     const photoUrl = await cloudinary.uploader.upload(photo);
+    console.log(
+      "🚀 ~ file: postRoutes.js:36 ~ router.route ~ photoUrl:",
+      photoUrl
+    );
     const newPost = await Post.create({
       name,
       prompt,
       photo: photoUrl.url,
     });
 
-    res.status(200).json({ success: true, data: newPost });
+    res.status(201).json({ success: true, data: newPost });
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "Unable to create a post, please try again!",
+      message: "Unable to create a post, something went wrong!",
     });
+    console.log(error);
   }
 });
 
