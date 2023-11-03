@@ -67,7 +67,7 @@ const CreatePost = () => {
         );
 
         await response.json();
-        if (response.status === 201 && response.success === true) {
+        if (response.status === 201 && response.ok) {
           alert("Share post successfully!");
         } else {
           alert("Unable to create a post, something went wrong!");
